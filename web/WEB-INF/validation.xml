@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE form-validation PUBLIC
+          "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1.3//EN"
+          "http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
+
+<!--
+    Reglas de validación para la aplicación SCEC
+-->
+
+<form-validation>
+    <global>
+        <constant>
+            <constant-name>alfabetico</constant-name>
+            <constant-value>^[a-zA-ZáéíóúñÑ ]*$</constant-value>
+        </constant>
+    </global>
+
+    <formset>
+        <form name="formaNuevoRol">
+            <field property="nombre"
+         	   depends="required,mask">
+                <msg name="mask" key="errors.mascaraa-zA-Z"/>
+                <arg0 key="formaNuevoRol.etiqueta.nombre"/>
+                <var>
+                    <var-name>mask</var-name>
+                    <var-value>${alfabetico}</var-value>
+                </var>
+            </field>
+            <field property="descripcion"
+         	   depends="required,mask">
+                <msg name="mask" key="errors.mascaraa-zA-Z"/>
+                <arg0 key="formaNuevoRol.etiqueta.descripcion"/>
+                <var>
+                    <var-name>mask</var-name>
+                    <var-value>${alfabetico}</var-value>
+                </var>
+            </field>
+        </form>
+        <form name="formaNuevaPersona">
+            <field property="nombre"
+         	   depends="required,mask">
+                <msg name="mask" key="errors.mascaraa-zA-Z"/>
+                <arg0 key="formaNuevaPersona.etiqueta.nombre"/>
+                <var>
+                    <var-name>mask</var-name>
+                    <var-value>${alfabetico}</var-value>
+                </var>
+            </field>
+
+            
+        </form>
+   </formset>
+
+</form-validation>
