@@ -36,7 +36,10 @@
                    type="edu.uag.iidis.scec.vista.FormaNuevaPersona">
         </form-bean>
         <form-bean name="formaListadoPersonas"
-                   type="edu.uag.iidis.scec.vista.formaListadoPersonas">
+                   type="edu.uag.iidis.scec.vista.FormaListadoPersonas">
+        </form-bean>
+        <form-bean name="formaListadoPersonasAJAX"
+                   type="edu.uag.iidis.scec.vista.FormaListadoPersonasAJAX">
         </form-bean>
         <form-bean name="formaEliminarPersona"
                    type="edu.uag.iidis.scec.vista.FormaEliminarPersona">
@@ -62,8 +65,16 @@
         <form-bean name="formaListadoCiudades"
                    type="edu.uag.iidis.scec.vista.FormaListadoCiudades">
         </form-bean>
+        <form-bean name="formaListadoCiudadesAJAX"
+                   type="edu.uag.iidis.scec.vista.FormaListadoCiudadesAJAX">
+        </form-bean>
         <form-bean name="formaEliminarEstado"
                    type="edu.uag.iidis.scec.vista.FormaEliminarCiudad">
+        </form-bean>
+    </form-beans>
+    <form-beans>
+        <form-bean name="formaNuevaSesion"
+                   type="edu.uag.iidis.scec.vista.FormaNuevaSesion">
         </form-bean>
     </form-beans>
 
@@ -176,6 +187,14 @@
                 validate="false">
             <forward name="exito" path="/WEB-INF/vista/pantallas/plantilla01.jsp?c=formaNuevaPersona.jsp"/>
         </action>
+        <action path="/login/solicitarRegistroSesion"
+                type="edu.uag.iidis.scec.control.MCURegistrarSesion"
+                parameter="solicitarRegistroSesion"
+                name="formaNuevaSesion"
+                scope="request"
+                validate="false">
+            <forward name="exito" path="/WEB-INF/vista/pantallas/plantilla01.jsp?c=formaNuevaSesion.jsp"/>
+        </action>
         <action path="/procesarRegistro"
                 type="edu.uag.iidis.scec.control.MCURegistrarUsuario"
                 parameter="procesarRegistro"
@@ -225,11 +244,41 @@
                 parameter="procesarRegistroPersona"
                 name="formaNuevaPersona"
                 scope="request"
-                validate="true"
+                validate="false"
                 input="/WEB-INF/vista/pantallas/plantilla01.jsp?c=formaNuevaPersona.jsp" >
             <forward name="cancelar" path="/solicitarListarPersonas.do" redirect="true"/>
             <forward name="exito" path="/WEB-INF/vista/pantallas/pantallaBienvenida.jsp"/>
             <forward name="volver" path="solicitarRegistroPersona.do" redirect="true"/>
+       </action>
+       <action path="/login/procesarRegistroSesion"
+                type="edu.uag.iidis.scec.control.MCURegistrarSesion"
+                parameter="procesarRegistroSesion"
+                name="formaNuevaSesion"
+                scope="request"
+                validate="false"
+                input="/WEB-INF/vista/pantallas/plantilla01.jsp?c=formaNuevaSesion.jsp" >
+            <forward name="exito" path="/WEB-INF/vista/pantallas/pantallaBienvenida.jsp"/>
+            
+       </action>
+       <!-- AJAX stuff -->
+       <action path="/solicitarListaCiudadesAJAX"
+                 type="edu.uag.iidis.scec.control.MCUListarCiudades"
+                parameter="solicitarListarAlgunasCiudades"
+                name="formaListadoCiudadesAJAX"
+                scope="request"
+                validate="false">
+            <forward name="exito" path="/WEB-INF/vista/pantallas/formaListadoCiudadesAJAX.jsp"/>
+            <forward name="fracaso" path="/WEB-INF/vista/pantallas/pantallaInicio.jsp"/>
+       </action>
+
+       <action path="/solicitarListaPersonasAJAX"
+                 type="edu.uag.iidis.scec.control.MCUListarPersonas"
+                parameter="solicitarListarAlgunasPersonas"
+                name="formaListadoPersonasAJAX"
+                scope="request"
+                validate="false">
+            <forward name="exito" path="/WEB-INF/vista/pantallas/formaListadoPersonasAJAX.jsp"/>
+            <forward name="fracaso" path="/WEB-INF/vista/pantallas/pantallaInicio.jsp"/>
        </action>
 
     </action-mappings>

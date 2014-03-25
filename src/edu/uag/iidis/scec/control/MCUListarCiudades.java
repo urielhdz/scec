@@ -69,4 +69,47 @@ public final class MCUListarCiudades
         }
 
     }
+    public ActionForward solicitarListarAlgunasCiudades(
+                ActionMapping mapping,
+                ActionForm form,
+                HttpServletRequest request,
+                HttpServletResponse response)
+            throws Exception {
+
+        if (log.isDebugEnabled()) {
+            log.debug(">solicitarListarCiudades");
+        }
+
+        // Verifica si la acción fue cancelada por el usuario
+        if (isCancelled(request)) {
+            if (log.isDebugEnabled()) {
+                log.debug("<La acción fue cancelada");
+            }
+            return (mapping.findForward("cancelar"));
+        }
+
+        FormaListadoCiudadesAJAX forma = (FormaListadoCiudadesAJAX)form;
+
+        ManejadorCiudades mr = new ManejadorCiudades();
+        Collection resultado = mr.listarAlgunasCiudades(request.getParameter("cadena"));
+        log.debug("<El parametro es: "+request.getParameter("cadena"));
+        ActionMessages errores = new ActionMessages();
+        if (resultado != null) {
+            if ( resultado.isEmpty() ) {
+                errores.add(ActionMessages.GLOBAL_MESSAGE,
+                    new ActionMessage("errors.registroVacio"));
+                saveErrors(request, errores);
+            } else {
+                forma.setCiudades( resultado );
+            }
+            return (mapping.findForward("exito"));
+        } else {
+            log.error("Ocurrió un error de infraestructura");
+            errores.add(ActionMessages.GLOBAL_MESSAGE,
+                        new ActionMessage("errors.infraestructura"));                
+            saveErrors(request, errores);
+            return ( mapping.findForward("fracaso") );
+        }
+
+    }
 }

@@ -1,6 +1,8 @@
 package edu.uag.iidis.scec.modelo;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.*;
 
 
@@ -20,6 +22,7 @@ public class Ciudad extends ClaseBase
     private String nombre;
     private String descripcion;
     private Estado estado;
+    private Set<Persona> personas;
 
 
     public Ciudad() {
@@ -95,6 +98,11 @@ public class Ciudad extends ClaseBase
     public Estado getEstado(){
         return this.estado;
     }
-
+    public Set getPersonas(){
+        return this.personas;
+    }
+    public void setPersonas(Set personas){
+        this.personas = personas;
+    }
 
 }

@@ -29,6 +29,7 @@ public class ManejadorPersonas {
         try {
             HibernateUtil.beginTransaction();
             resultado = dao.buscarTodos();
+            log.debug(">Total resultado: "+resultado.size());
             HibernateUtil.commitTransaction();
             return resultado;         
         } catch (ExcepcionInfraestructura e) {
@@ -38,7 +39,25 @@ public class ManejadorPersonas {
             HibernateUtil.closeSession();
         }
     }
+    public Collection listarAlgunasPersonas(String cadena,String order) {
+        Collection resultado;
 
+        if (log.isDebugEnabled()) {
+            log.debug(">guardarUsuario(usuario)");
+        }
+
+        try {
+            HibernateUtil.beginTransaction();
+            resultado = dao.ordenarPorCadena(cadena,order);
+            HibernateUtil.commitTransaction();
+            return resultado;         
+        } catch (ExcepcionInfraestructura e) {
+            HibernateUtil.rollbackTransaction();
+            return null;
+        } finally {
+            HibernateUtil.closeSession();
+        }
+    }
     public void eliminarPersona(Long id) {
         if (log.isDebugEnabled()) {
             log.debug(">eliminarPersona(persona)");

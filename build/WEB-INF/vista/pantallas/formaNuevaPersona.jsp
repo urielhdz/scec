@@ -16,16 +16,19 @@
                    size="50"
                    class="form-control" 
                    maxlength="100"
+                   autocomplete="off"
                    value="${formaNuevoPersona.nombre}" />
           </div>
           <div class="form-group">
             <input type="text" 
                    placeholder="Ciudad"
                    name= "ciudad"
-                   id = "ciudad"
-                   class="form-control" 
+                   class="form-control"
+                   id='ciudad_selector'
                    maxlength="100"
-                   value="${formaNuevoPersona.persona}" />
+                   autocomplete="off"
+                   list="ciudades"
+                   value="${formaNuevoPersona.ciudad}" />
           </div>
           <div>
             <input type="submit" 
@@ -47,6 +50,28 @@
               class="btn btn-info" 
               onclick="bCancel=true;">    
           </div>
+          <datalist id="ciudades">
+            
+          </datalist>
       </form>
       </div>
     </section>
+<script src="js/jquery.js"></script>
+<script>
+
+  var change_temp = "";
+  $('#ciudad_selector').on("keydown keyup",function(e){
+      var self = this;
+        $.ajax({
+          url:"/USJv0.3/solicitarListaCiudadesAJAX.do",
+          type:"post",
+          data: {cadena: $(self).val()},
+          success: function(e){
+            console.log(e); 
+          },
+          error: function(e){
+            console.log(e);
+          }
+        });
+  });
+</script>

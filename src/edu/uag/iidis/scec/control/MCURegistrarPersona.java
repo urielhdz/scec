@@ -85,8 +85,8 @@ public final class MCURegistrarPersona
         
         // Se obtienen los datos para procesar el registro
         FormaNuevaPersona forma = (FormaNuevaPersona)form;
-        Ciudad ciudad = eDAO.buscarPorId(Long.parseLong(forma.getCiudad()),false);
-
+        //Ciudad ciudad = eDAO.buscarPorId(Long.parseLong(forma.getCiudad()),false);
+        Ciudad ciudad = eDAO.buscarPorNombre(forma.getCiudad());
         Persona persona = new Persona(forma.getNombre(),ciudad);
         
         ManejadorPersonas mr = new ManejadorPersonas();

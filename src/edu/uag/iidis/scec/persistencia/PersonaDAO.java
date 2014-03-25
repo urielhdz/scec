@@ -2,7 +2,7 @@ package edu.uag.iidis.scec.persistencia;
 
 import org.hibernate.*;
 import org.hibernate.type.*;
-import org.hibernate.criterion.Example;
+import org.hibernate.criterion.*;
 //import org.hibernate.classic.*;
 
 
@@ -76,6 +76,10 @@ public class PersonaDAO {
             }
             throw new ExcepcionInfraestructura(e);
         }
+        for (Object object_persona : personas) {
+            Persona persona = (Persona) object_persona;
+            Hibernate.initialize(persona.ciudad);
+        }
         return personas;
     }
 
@@ -147,19 +151,6 @@ public class PersonaDAO {
         }
 
         try {
-			
-			
-//            String consultaCuentaRoles =
-//            "select count(*) from Persona r where r.nombre=?";
-//
- //           int resultado =
- //           ((Integer) HibernateUtil.getSession()
- //                          .find(consultaCuentaRoles, 
- //                                nombreRol,
- //                                StringType.INSTANCE)
- //                          .iterator()
- //                          .next()).intValue();
-// de acuerdo al nuevo formato
  
 			String hql = "select nombre from Persona where nombre = :nombre";
 			
@@ -194,6 +185,46 @@ public class PersonaDAO {
             }
             throw new ExcepcionInfraestructura(ex);
         }
+    }
+    public Collection ordenarPorCadena(String cadena,String order) throws ExcepcionInfraestructura {
+        Collection personas;
+
+        if (log.isDebugEnabled()) {
+            log.debug(">buscarTodos()");
+        }
+
+        try {
+            /*
+                Criteria criteria = HibernateUtil.getSession()
+                                             .createCriteria(Persona.class);
+                personas = criteria.add(Example.create(persona)).list();
+                personas = HibernateUtil.getSession()
+                                    .createQuery("from Persona order by nombre desc")
+                                    .setParameter("cadena",cadena)
+                                    .list();
+                
+            */
+            log.debug("<El parametro es: "+cadena);
+            Criteria criteria = HibernateUtil.getSession()
+                                             .createCriteria(Persona.class);
+            if(order.equals("asc"))
+                personas = criteria.addOrder(Order.asc(cadena)).list();
+            else
+                personas = criteria.addOrder(Order.desc(cadena)).list();
+
+            log.debug(">buscarTodos() ---- list   ");                                 
+        } catch (HibernateException e) {
+            if (log.isWarnEnabled()) {
+                log.warn("<HibernateException : "+e.toString());
+            }
+            throw new ExcepcionInfraestructura(e);
+        }
+        for (Object object_persona : personas) {
+            Persona persona = (Persona) object_persona;
+            Hibernate.initialize(persona.ciudad);
+        }
+        return personas;
+
     }
 
 

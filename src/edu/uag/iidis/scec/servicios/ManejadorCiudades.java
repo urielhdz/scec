@@ -38,7 +38,25 @@ public class ManejadorCiudades {
             HibernateUtil.closeSession();
         }
     }
+    public Collection listarAlgunasCiudades(String cadena) {
+        Collection resultado;
 
+        if (log.isDebugEnabled()) {
+            log.debug(">guardarUsuario(usuario)");
+        }
+
+        try {
+            HibernateUtil.beginTransaction();
+            resultado = dao.buscarPorCadena(cadena);
+            HibernateUtil.commitTransaction();
+            return resultado;         
+        } catch (ExcepcionInfraestructura e) {
+            HibernateUtil.rollbackTransaction();
+            return null;
+        } finally {
+            HibernateUtil.closeSession();
+        }
+    }
     public void eliminarCiudad(Long id) {
         if (log.isDebugEnabled()) {
             log.debug(">eliminarCiudad(ciudad)");

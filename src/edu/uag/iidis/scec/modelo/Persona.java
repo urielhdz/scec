@@ -1,6 +1,7 @@
 package edu.uag.iidis.scec.modelo;
 
 import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.List;
 
 
@@ -14,11 +15,12 @@ import java.util.List;
  * @author <a href="mailto:vramos@uag.mx">Victor Ramos</a>
  * @version 1.0
  */
-public class Persona {
+public class Persona extends ClaseBase 
+        implements Serializable{
     
     protected Long id;
     private String nombre;
-    private Ciudad ciudad;
+    public Ciudad ciudad;
 
     public Persona(){
     }

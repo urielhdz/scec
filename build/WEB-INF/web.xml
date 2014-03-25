@@ -39,6 +39,17 @@
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
+    <!-- Login Filter -->
+    <filter>
+        <filter-name>login</filter-name>
+        <filter-class>edu.uag.iidis.scec.filters.LoginFilter</filter-class>
+        
+    </filter>
+
+    <filter-mapping>
+        <filter-name>login</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 
 
     <!-- Struts Tag Library Descriptors  comentar para tomcat 7 	

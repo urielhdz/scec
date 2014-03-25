@@ -4,9 +4,9 @@
     <head>
         <title>Titulo del documento</title>
         <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-        <link rel="stylesheet" type="text/css" href="css/plantilla.css">
-        <link rel="stylesheet" type="text/css" href="css/app.css">
-        <link rel="stylesheet" type="text/css" href="css/mensajes.css">
+        <link rel="stylesheet" type="text/css" href="/USJv0.3/css/plantilla.css">
+        <link rel="stylesheet" type="text/css" href="/USJv0.3/css/app.css">
+        <link rel="stylesheet" type="text/css" href="/USJv0.3/css/mensajes.css">
     </head>
 	
     <body>
@@ -28,5 +28,7 @@
                 </td>
             </tr>
         </table>
+        
+        
     </body>
 </html>

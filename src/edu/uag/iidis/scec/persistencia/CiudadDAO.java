@@ -53,6 +53,29 @@ public class CiudadDAO {
         }
         return ciudad;
     }
+    public Ciudad buscarPorNombre(String nombre)
+            throws ExcepcionInfraestructura {
+
+        Ciudad ciudad = null;
+
+        if (log.isDebugEnabled()) {
+            log.debug(">buscarPorNombre(" + nombre + ")");
+        }
+
+        try {
+            ciudad = (Ciudad) HibernateUtil.getSession()
+                                    .createQuery("from Ciudad where nombre = :nombre")
+                                    .setParameter("nombre",nombre)
+                                    .list().iterator().next();
+        } catch (HibernateException ex) {
+            if (log.isWarnEnabled()) {
+                log.warn("<HibernateException");
+            }
+
+            throw new ExcepcionInfraestructura(ex);
+        }
+        return ciudad;
+    }
 
 
     public Collection buscarTodos()
@@ -147,19 +170,6 @@ public class CiudadDAO {
         }
 
         try {
-			
-			
-//            String consultaCuentaRoles =
-//            "select count(*) from Ciudad r where r.nombre=?";
-//
- //           int resultado =
- //           ((Integer) HibernateUtil.getSession()
- //                          .find(consultaCuentaRoles, 
- //                                nombreRol,
- //                                StringType.INSTANCE)
- //                          .iterator()
- //                          .next()).intValue();
-// de acuerdo al nuevo formato
  
 			String hql = "select nombre from Ciudad where nombre = :nombre";
 			
@@ -194,6 +204,29 @@ public class CiudadDAO {
             }
             throw new ExcepcionInfraestructura(ex);
         }
+    }
+    public Collection buscarPorCadena(String cadena) throws ExcepcionInfraestructura {
+        Collection ciudades;
+
+        if (log.isDebugEnabled()) {
+            log.debug(">buscarTodos()");
+        }
+
+        try {
+            ciudades = HibernateUtil.getSession()
+                                    .createQuery("from Ciudad where nombre LIKE :nombre")
+                                    .setParameter("nombre","%"+cadena+"%")
+                                    .list();
+                                    
+              log.debug(">buscarTodos() ---- list   ");                                 
+        } catch (HibernateException e) {
+            if (log.isWarnEnabled()) {
+                log.warn("<HibernateException");
+            }
+            throw new ExcepcionInfraestructura(e);
+        }
+        return ciudades;
+
     }
 
 

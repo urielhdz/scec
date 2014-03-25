@@ -2,6 +2,7 @@ package edu.uag.iidis.scec.vista;
 
 import java.util.Collection;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 
 import org.apache.struts.action.ActionError;
 import org.apache.struts.action.ActionErrors;
@@ -18,9 +19,16 @@ public final class FormaListadoPersonas
         extends ValidatorForm {
 
     private Collection personas;
+    private ArrayList ciudades;
     private int contador;
 
-
+    public void setCiudades(ArrayList ciudades){
+        this.ciudades = ciudades;
+    }
+    public ArrayList getCiudades(){
+        return this.ciudades;
+    }
+    
     public void setPersonas(Collection personas) {
         this.personas = personas;
         if (personas != null) {

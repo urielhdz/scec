@@ -3,6 +3,7 @@
 <hibernate-mapping>
     <class name="edu.uag.iidis.scec.modelo.Persona"
            table="personas"
+           lazy="false"
            dynamic-update="false"
            dynamic-insert="false">
 
@@ -13,14 +14,13 @@
             <generator class="increment">
             </generator>
         </id>
-        <many-to-one name="ciudad" class="edu.uag.iidis.scec.modelo.Ciudad">
-            <column name="idCiudad"/>
-        </many-to-one>
         <property name="nombre"
             type="java.lang.String"
             not-null="true"
             unique="true" />
- 
+        <many-to-one name="ciudad" class="edu.uag.iidis.scec.modelo.Ciudad" fetch="select">
+            <column name="idCiudad" not-null="true" />
+        </many-to-one>
     </class>
 
 </hibernate-mapping>

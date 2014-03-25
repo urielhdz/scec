@@ -3,6 +3,7 @@
 <hibernate-mapping>
     <class name="edu.uag.iidis.scec.modelo.Ciudad"
            table="ciudades"
+           lazy="false"
            dynamic-update="false"
            dynamic-insert="false">
 
@@ -16,6 +17,13 @@
         <many-to-one name="estado" class="edu.uag.iidis.scec.modelo.Estado">
             <column name="idEstado"/>
         </many-to-one>
+        <set name="personas" table="personas" 
+                inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idCiudad" />
+            </key>
+            <one-to-many class="edu.uag.iidis.scec.modelo.Persona" />
+        </set>
         <property name="nombre"
             type="java.lang.String"
             not-null="true"
@@ -24,6 +32,7 @@
         <property name="descripcion"
             type="java.lang.String"
              />
+
  
     </class>
 
